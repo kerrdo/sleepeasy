@@ -6,3 +6,21 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
+
+.search-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.search-wrapper#search-bar {
+  -webkit-flex-grow: 5;
+  flex-grow: 5;
+}
+.search-wrapper#search-button {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
