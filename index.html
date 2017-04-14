@@ -1,49 +1,77 @@
 <!doctype html>
 
 <html>
-  <head>
-    <title>SleepEasy</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <header class="head-wrapper">
-      <img src="images/logo.png">
-    </header>
-    <style>
-       #map {
-        height: 800px;
-        width: 100%;
-       }
-    </style>
-  </head>
 
-  <br>
+  <div id="page-wrapper">
+    <head>
+      <meta charset="UTF-8">
+      <title>SleepEasy</title>
+      <link rel="stylesheet" type="text/css" href="styles/style.css">
+      <header id="head-wrapper">
+        <div id="logo">
+          <img src="images/logo.png">
+        </div>
+      </header>
+    </head>
 
-  <body>
-    <div class = "search-wrapper">
-      <form id="search-bar"> <input type="text" placeholder="Search" required> </form>
-      <form id="search-button"> <input type="button" value="Get Location"> </form>
-    </div>
-    <h3>My Google Maps Demo</h3>
-    <div id="map"></div>
-    <script>
-      function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEair_XmsDV1oSNRuUayj-EZQpnIpEpp4&callback=initMap">
-    </script>
-  </body>
+    <br>
 
-  <footer id = "PageFooter">
-     <a href = "#">Copyright bs</a>
-  </footer>
+    <body>
+      <div id = "search-wrapper">
+        <form> <input type="text" placeholder="Search" id="search-bar"> <input type="submit" value="Get Location" id="search-button"> </form>
+      </div>
+
+      <br>
+
+      <div id="main-wrapper">
+        <div id="menu-wrapper">
+          <nav id="top-menu">
+            <ul>
+              <il><a href="#">Nearest</a></li>
+              <il><a href="#">Cheapest</a></li>
+              <il><a href="#">Top Rated</a></li>
+            </ul>
+          </nav>
+          <nav id="menu">
+            <ul>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+              <li><a href="#">Location</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div id="map-wrapper">
+          <div id="map">
+            <h3>My Google Maps Demo</h3>
+            <script>
+              function initMap() {
+                var uluru = {lat: -25.363, lng: 131.044};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 4,
+                  center: uluru
+                });
+                var marker = new google.maps.Marker({
+                  position: uluru,
+                  map: map
+                });
+              }
+            </script>
+            <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEair_XmsDV1oSNRuUayj-EZQpnIpEpp4&callback=initMap">
+            </script>
+          </div>
+        </div>
+      </div>
+    </body>
+    <footer id = "PageFooter">
+       <a href = "#">Copyright bs</a>
+    </footer>
+  </div>
 
 </html>
