@@ -12,6 +12,12 @@
           <img src="images/logo.png">
         </div>
       </header>
+      <style>
+         #map {
+          height: 515px;
+          width: 100%;
+         }
+      </style>
     </head>
 
     <br>
@@ -46,32 +52,25 @@
             </ul>
           </nav>
         </div>
-        <div id="map-wrapper">
-          <div id="map">
-            <h3>My Google Maps Demo</h3>
-            <script>
-              function initMap() {
-                var uluru = {lat: -25.363, lng: 131.044};
-                var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 4,
-                  center: uluru
-                });
-                var marker = new google.maps.Marker({
-                  position: uluru,
-                  map: map
-                });
-              }
-            </script>
-            <script async defer
+          <div id="map"></div>
+          <script>
+            function initMap() {
+              var aberdeen = {lat: 57.15, lng: -2.8};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: aberdeen
+              });
+              var marker = new google.maps.Marker({
+                position: aberdeen,
+                map: map
+              });
+            }
+          </script>
+          <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEair_XmsDV1oSNRuUayj-EZQpnIpEpp4&callback=initMap">
-            </script>
-          </div>
-        </div>
+          </script>
       </div>
     </body>
-    <footer id = "PageFooter">
-       <a href = "#">Copyright bs</a>
-    </footer>
   </div>
 
 </html>
