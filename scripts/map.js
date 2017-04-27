@@ -1,3 +1,5 @@
+var userLocation;
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
@@ -17,10 +19,9 @@ function initMap() {
     streetViewControl: false
   });
 
-  google.maps.event.addListener(getElementById('submit-button'), 'click', getLocation());
 }
 
-  function getLocation() {
+function getLocation() {
     infoWindow = new google.maps.InfoWindow;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -33,6 +34,7 @@ function initMap() {
       infoWindow.setContent('You Are Here');
       infoWindow.open(map);
       map.setCenter(pos);
+      userLocation = pos;
       }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
       });
