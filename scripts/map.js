@@ -34,6 +34,7 @@ function getLocation() {
       infoWindow.setContent('You Are Here');
       infoWindow.open(map);
       map.setCenter(pos);
+      map.setZoom(15);
       userLocation = pos;
       }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
