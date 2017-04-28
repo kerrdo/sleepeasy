@@ -1,4 +1,4 @@
-var map, userLocation, searchTerm, geocoder, request, service;
+var map, userLocation, searchTerm, geocoder;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -37,23 +37,7 @@ function getLocation() {
         map.setCenter(pos);
         map.setZoom(16);
         userLocation = pos;
-
-        request = {
-          location: userLocation,
-          radius: 4020,
-          types: ['cafe']
-        };
-
-        service = new google.maps.places.PlacesService(map);
-
-        service.nearbySearch({
-          location: {
-            lat: 52.15,
-            lng: -2.1
-          },
-          radius: 500,
-          type: ['store']
-        }, callback);
+        getPlaces();
 
         }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
@@ -83,26 +67,41 @@ function getLocation() {
            infoWindow.setPosition(results[0].geometry.location);
            infoWindow.setContent('You Are Here');
            infoWindow.open(resultsMap);
+           getPlaces();
          } else {
            alert('The Post Code is not formatted properly. Please enter in the following format: \'AA11 1AA\'');
          }
        });
      }
 
-     function callback(results, status) {
-       if(status == google.maps.places.PlacesServiceStatus.OK) {
-         for(var i = 0; i < results.length; i++) {
-           createMarker(results[i]);
-         }
-       }
-     }
+  }
 
-     function createMarker(place) {
-       var placeLoc = place.geometry.location;
-       var marker = new google.maps.Marker({
-         map: map,
-         position: place.geometry.location
-       });
-     }
+  function getPlaces() {
 
+    var request = {
+      location: userLocation,
+      radius: 8046,
+      types: ['cafe']
+    };
+
+    var service = new google.maps.places.PlacesService(map);
+
+    service.nearbySearch(request, callback);
+
+
+    function callback(results, status) {
+      if(status == google.maps.places.PlacesServiceStatus.OK) {
+        for(var i = 0; i < results.length; i++) {
+          createMarker(results[i]);
+        }
+      }
+    }
+
+    function createMarker(place) {
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+    }
   }
