@@ -1,4 +1,4 @@
-var userLocation, searchTerm;
+var userLocation, searchTerm, geocoder;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -18,7 +18,6 @@ function initMap() {
     },
     streetViewControl: false
   });
-
 }
 
 function getLocation() {
@@ -36,7 +35,7 @@ function getLocation() {
         infoWindow.setContent('You Are Here');
         infoWindow.open(map);
         map.setCenter(pos);
-        map.setZoom(15);
+        map.setZoom(16);
         userLocation = pos;
         }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
@@ -46,9 +45,9 @@ function getLocation() {
         handleLocationError(false, infoWindow, map.getCenter());
       }
     } else {
-      
+      geocoder = new google.maps.Geocoder();
+      geocodeAddress(geocoder, map);
     }
-
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
@@ -56,5 +55,21 @@ function getLocation() {
       'Error: The Geolocation service failed.' :
       'Error: Your browser doesn\'t support geolocation.');
     infoWindow.open(map);
+    }
+
+    function geocodeAddress(geocoder, resultsMap) {
+       geocoder.geocode({'address': searchTerm}, function(results, status) {
+         if (status === 'OK') {
+           resultsMap.setCenter(results[0].geometry.location);
+           resultsMap.setZoom(16);
+           infoWindow.setPosition(results[0].geometry.location);
+           infoWindow.setContent('You Are Here');
+           infoWindow.open(resultsMap);
+         } else {
+           alert('The Post Code is not formatted properly. Please enter in the following format: \'AA11 1AA\'');
+         }
+       });
+     }
+
+
   }
-}
