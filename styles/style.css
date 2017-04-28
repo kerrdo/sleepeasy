@@ -33,7 +33,8 @@ body {
 #head-wrapper h3 {
   margin-top: 0;
   margin-bottom: 0;
-  margin-left: 25%;
+  padding-left: 23%;
+  padding-right: 23%;
   background: #001f3f;
   color: white;
 }
