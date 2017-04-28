@@ -1,4 +1,4 @@
-var userLocation, searchTerm, geocoder, request, service;
+var map, userLocation, searchTerm, geocoder, request, service;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -38,15 +38,22 @@ function getLocation() {
         map.setZoom(16);
         userLocation = pos;
 
-        var request = {
+        request = {
           location: userLocation,
           radius: 4020,
           types: ['cafe']
         };
 
-        var service = new google.maps.places.PlacesService(map);
+        service = new google.maps.places.PlacesService(map);
 
-        service.nearbySearch(request, callback);
+        service.nearbySearch({
+          location: {
+            lat: 52.15,
+            lng: -2.1
+          },
+          radius: 500,
+          type: ['store']
+        }, callback);
 
         }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
