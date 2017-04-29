@@ -90,6 +90,11 @@ body {
   flex-direction: column;
 }
 
+#menu-wrapper nav ul {
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+
 #menu-wrapper nav ul li{
   width: auto;
   background: #001f3f;
@@ -101,6 +106,8 @@ body {
 #menu-wrapper nav ul li:hover {
   background: #007eff;
   transition: all 0.40s;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #menu-wrapper nav ul li a {
@@ -109,25 +116,6 @@ body {
   font-family: helvetica, sans-serif;
 }
 
-#top-menu ul {
-  -webkit-flex-direction: row;
-  flex-direction: row;
-}
-
-#top-menu ul li a {
-  color: white;
-  font-size: large;
-}
-
-#menu ul {
-  -webkit-flex-direction: column;
-  flex-direction: column;
-}
-
-#menu ul li:hover {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
 
 #map {
    height: 515px;

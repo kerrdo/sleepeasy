@@ -1,4 +1,6 @@
-var map, userLocation, searchTerm, geocoder;
+var map, userLocation, searchTerm, geocoder, infoWindow, service, infowindow;
+var markers = [];
+var menuItems = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -8,7 +10,7 @@ function initMap() {
     },
     zoom: 7,
     disableDefaultUI: false,
-    mapTypeId: google.maps.MapTypeId.HYBRID,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
     maxZoom: 20,
     minZoom: 7,
     zoomControl: true,
@@ -16,8 +18,10 @@ function initMap() {
       position: google.maps.ControlPosition.LEFT_BOTTOM,
       Style: google.maps.ZoomControlStyle.LARGE
     },
-    streetViewControl: false
+    streetViewControl: false,
   });
+  infowindow = new google.maps.InfoWindow();
+  service = new google.maps.places.PlacesService(map);
 }
 
 function getLocation() {
@@ -37,26 +41,57 @@ function getLocation() {
         map.setCenter(pos);
         map.setZoom(16);
         userLocation = pos;
-        getPlaces();
+
+        service.nearbySearch({
+          location: pos,
+          radius: 4024,
+          type: ['sleep']
+        }, callback);
 
         }, function() {
-        handleLocationError(true, infoWindow, map.getCenter());
+          handleLocationError(true, infoWindow, map.getCenter());
         });
       } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
       }
     } else {
-      geocoder = new google.maps.Geocoder();
-      geocodeAddress(geocoder, map);
+        geocoder = new google.maps.Geocoder();
+        geocodeAddress(geocoder, map);
     }
 
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
       'Error: The Geolocation service failed.' :
       'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
+      infoWindow.open(map);
+    }
+
+    function callback(results, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          createMarker(results[i]);
+          markers += JSON.stringify(results[i]);
+        }
+      }
+      var lItems = $("#menu li");
+      lItems.each(function(li) {
+          console.log($(this).attr('id'));
+        });
+    }
+
+    function createMarker(place) {
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+      });
     }
 
     function geocodeAddress(geocoder, resultsMap) {
@@ -67,41 +102,13 @@ function getLocation() {
            infoWindow.setPosition(results[0].geometry.location);
            infoWindow.setContent('You Are Here');
            infoWindow.open(resultsMap);
-           getPlaces();
+
+
+
          } else {
            alert('The Post Code is not formatted properly. Please enter in the following format: \'AA11 1AA\'');
          }
        });
      }
 
-  }
-
-  function getPlaces() {
-
-    var request = {
-      location: userLocation,
-      radius: 8046,
-      types: ['cafe']
-    };
-
-    var service = new google.maps.places.PlacesService(map);
-
-    service.nearbySearch(request, callback);
-
-
-    function callback(results, status) {
-      if(status == google.maps.places.PlacesServiceStatus.OK) {
-        for(var i = 0; i < results.length; i++) {
-          createMarker(results[i]);
-        }
-      }
-    }
-
-    function createMarker(place) {
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-      });
-    }
   }
