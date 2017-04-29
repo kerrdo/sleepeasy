@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 var map, userLocation, searchTerm, geocoder, infoWindow, service, infowindow;
 var markers = [];
 var menuItems = [];
-=======
-<<<<<<< Updated upstream
-var map, userLocation, searchTerm, geocoder;
->>>>>>> 8d4a1c097ea4f769e770bc8217455aef0afbf1b4
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -117,54 +112,3 @@ function getLocation() {
      }
 
   }
-<<<<<<< HEAD
-=======
-
-  function getPlaces() {
-
-    var request = {
-      location: userLocation,
-      radius: 8046,
-      types: ['cafe']
-    };
-
-    var service = new google.maps.places.PlacesService(map);
-
-    service.nearbySearch(request, callback);
-
-
-    function callback(results, status) {
-      if(status == google.maps.places.PlacesServiceStatus.OK) {
-        for(var i = 0; i < results.length; i++) {
-          createMarker(results[i]);
-        }
-      }
-    }
-
-    function createMarker(place) {
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-      });
-    }
-  }
-=======
-(function(window, google) {
-
-  //map options
-  var options = {
-    center: {
-      lat: '52.15',
-      lng: '-2.1'
-    },
-    zoom: 7
-  },
-
-  element = document.getElementById('map');
-  //map
-  map = new google.maps.Map(element, options);
-
-}(window, google));
->>>>>>> Stashed changes
->>>>>>> 8d4a1c097ea4f769e770bc8217455aef0afbf1b4
